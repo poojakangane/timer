@@ -1,0 +1,305 @@
+<html>
+<head>
+  <style>
+  .button {
+  background-color: #1d42e2;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.div1{
+  width:800px;
+background-color:#1d42e2;
+position:relative;
+left:50%;
+margin-left:-200px;
+border-radius: 10px;
+-moz-border-radius: 10px;
+padding:40px;
+padding-top: 9px;
+padding-bottom: 22px;
+padding-left: 20px;
+width: 30%;
+
+}
+
+  #div2{
+    width:380px;
+border: 1px solid;
+background-color:#dbd9ca;
+border-radius: 10px;
+-moz-border-radius: 10px;
+margin:5px;
+margin-top:20px;
+padding:20px;
+  }
+  </style>
+</head>
+<body>
+  <br>
+  <br>
+  <br>
+  <br>
+  <div class="div1" id="img">
+<div align="center" id="div2">
+  <input id="hr" type="text" value=0 style="width: 20px;
+       border: none; font-size: 16px;
+      font-weight: bold; color: black;"><font size="5"> :
+                  </font>
+  <input id="min" type="text" value=0 style="width: 20px;
+       border: none; font-size: 16px;
+      font-weight: bold; color: black;"><font size="5"> :
+                  </font>
+  <input id="sec" type="text" value=0 style="width: 20px;
+       border: none; font-size: 16px;
+      font-weight: bold; color: black;"><font size="5"> :
+                  </font>
+  <input id="msec" type="text" value=0 style="width: 20px;
+                  border: none; font-size: 16px;
+                  font-weight: bold; color: black;">
+
+
+<br>
+<br>
+
+<button class="button" onclick="clock()" style="colo">Start</button>
+<button class="button" onclick="startCount()">Resume</button>
+<button class="button" onclick="stopCount()">Stop</button>
+<button class="button" onclick="reset()">Reset</button>
+</div>
+</div>
+
+
+<script>
+var hr=0;
+var min=0;
+var sec=0;
+var msec=0;
+var t;
+var timer_is_on = 0;
+
+function reset()
+{
+  //document.write("hello");
+  hr=0;
+  min=0;
+  sec=0;
+  msec=0;
+  timer_is_on = 0
+    lastreset();
+}
+
+function clock()
+{
+
+/*var msec = 15;
+msec=msec-1;
+var t;
+var sec=15;
+sec=sec-1;
+var min=15;
+min=min-1;
+var hr=2
+hr=hr-1;*/
+
+
+hr=document.getElementById("hr").value;
+
+if(hr!=0)
+{
+hr=hr-1;
+min=59;
+sec=59;
+msec=59;
+}
+else
+{
+min=document.getElementById("min").value;
+if(min!=0)
+{
+  min=min-1;
+  sec=59;
+  msec=59;
+}
+else
+{
+sec=document.getElementById("sec").value;
+if(sec!=0)
+{
+  sec=sec-1;
+  msec=59;
+}
+else
+{
+msec=document.getElementById("msec").value;
+msec=msec-1;
+}
+}
+}
+
+timedCount();
+timer_is_on = 0;
+}
+function timedCount() {
+
+  document.getElementById("hr").value = hr;
+  document.getElementById("min").value = min;
+  document.getElementById("sec").value = sec;
+  document.getElementById("msec").value = msec;
+
+  msec=mseconds();
+  sec=seconds();
+  min=minutes();
+  hr=hours();
+
+  t = setTimeout(timedCount,15);
+}
+
+function last()
+{
+  document.getElementById("min").value = min;
+  document.getElementById("sec").value = sec;
+  document.getElementById("msec").value = 0;
+  alert("time up!!!!");
+  clearTimeout(t);
+  t=NULL;
+}
+
+function lastreset()
+{
+  document.getElementById("min").value = min;
+  document.getElementById("sec").value = sec;
+  document.getElementById("msec").value = 0;
+  clearTimeout(t);
+  t=NULL;
+}
+
+
+function mseconds()
+{
+  if(sec==0)
+  {
+    if(msec==-1)
+    {
+      last();
+      return msec;
+    }
+    else
+    {
+      msec=msec-1;
+      return msec;
+    }
+  }
+  else
+  {
+
+   if(min!=0)
+   {
+     document.getElementById("hr").style.color = "#43e00f";
+     document.getElementById("min").style.color = "#43e00f";
+     document.getElementById("sec").style.color = "#43e00f";
+     document.getElementById("msec").style.color = "#43e00f";
+   }
+   else
+   {
+     if(sec<=10)
+     {
+       document.getElementById("hr").style.color = "#ec0d03";
+       document.getElementById("min").style.color = "#ec0d03";
+       document.getElementById("sec").style.color = "#ec0d03";
+       document.getElementById("msec").style.color = "#ec0d03";
+     }
+     else
+     {
+     if(sec<=59)
+     {
+    document.getElementById("hr").style.color = "#ecdb03";
+    document.getElementById("min").style.color = "#ecdb03";
+    document.getElementById("sec").style.color = "#ecdb03";
+    document.getElementById("msec").style.color = "#ecdb03";
+     }
+     }
+     }
+
+  msec=msec-1;
+  return msec;
+  }
+}
+
+function seconds()
+{
+  if(msec==0)
+  {
+    if(sec==0)
+    {
+      return sec;
+    }
+  sec= sec-1;
+  msec=59;
+  return sec;
+  }
+  else
+  {
+  return sec;
+  }
+}
+
+function minutes()
+{
+  if(sec==0)
+  {
+    if(min==0)
+    {
+      return min;
+    }
+    min=min-1;
+    sec=59;
+    return min;
+  }
+  else
+  {
+  return min;
+  }
+}
+
+function hours()
+{
+  if(min==0)
+  {
+    if(hr==0)
+    {
+      return hr;
+    }
+    hr=hr-1;
+    min=59;
+    return hr;
+  }
+  else
+  {
+  return hr;
+  }
+}
+
+function startCount() {
+  if (!timer_is_on) {
+    timer_is_on = 1;
+    timedCount();
+  }
+}
+
+function stopCount() {
+  clearTimeout(t);
+  timer_is_on = 0;
+}
+
+</script>
+
+</body>
+</html>
